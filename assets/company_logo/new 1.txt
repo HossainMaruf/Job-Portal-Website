@@ -1,0 +1,61 @@
+close all;
+clear all;
+clc;
+
+i_img = imread('input17.png');
+[r,c] = size(i_img);
+figure(1);
+subplot(221); imshow(i_img); title('Source Image');
+FT_img = fft2(double(i_img));
+%Assign cut off frequency
+D0 = 30;
+%creating filter
+u = 0:(r-1);
+idx = find(u>r/2);
+u(idx) = u(idx)-r;
+v = 0:(c-1);
+idy = find(v>c/2);
+v(idy) = v(idy)-c;
+[V, U] = meshgrid(v, u);
+%Calculating Euclidean Distance
+D = sqrt(U.^2 + V.^2);
+%Comparing with the cut-off frequency and determining the filtering mask
+H = double(D<=D0);
+%Convolution between Fourier Transformed image and mask
+G = H.*FT_img;
+o_img = real(ifft2(G));
+subplot(222); imshow(o_img); title('Ideal Low-pass filtered image');
+
+
+
+
+
+
+
+
+
+
+
+
+
+clc;
+clear all;
+close all;
+input_image = imread('input17.png');
+  
+[M, N] = size(input_image);
+FT_img = fft2(double(input_image));
+D0 = 30; % one can change this value accordingly
+u = 0:(M-1);
+idx = find(u>M/2);
+u(idx) = u(idx)-M;
+v = 0:(N-1);
+idy = find(v>N/2);
+v(idy) = v(idy)-N;
+[V, U] = meshgrid(v, u);
+D = sqrt(U.^2+V.^2);
+H = double(D <= D0);
+G = H.*FT_img;
+output_image = real(ifft2(double(G)));
+subplot(1, 2, 1), imshow(input_image),
+subplot(1, 2, 2), imshow(output_image);

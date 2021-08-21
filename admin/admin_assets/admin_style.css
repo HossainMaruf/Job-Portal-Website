@@ -1,0 +1,32 @@
+.reg-form {
+  border-right: .5px solid #333;
+   border-bottom: 0.5px solid #333;
+   background-image: linear-gradient(95deg,rgba(166, 210, 247,0.3), rgb(248, 148, 208,0.4));
+   transition: .3s;
+}
+.reg-form:hover{
+    transform: scale(1);
+    box-shadow: 2px 6px 5px #444;
+}
+
+.form-title{
+    border-bottom: 2px solid rebeccapurple;
+    padding-bottom: 4px;
+    color: rgb(241, 79, 79);
+}
+.login-form{
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    box-shadow: 2px 3px 7px #ccc;
+    background: linear-gradient(to bottom right, #b8eee7 40%, #e2a4c1 60%);
+}
+.tilte{
+    font-size: 2.5rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgb(134, 29, 29);
+}
+
+.sign-link{
+    text-decoration: none;
+    color:crimson;;
+}

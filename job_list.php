@@ -85,11 +85,12 @@
                             <h6 class="fw-2 fs-1 text-center"></h6>
                             <?php
                             $limit = 3;
-                                $sql = "SELECT * FROM tbl_jobs where status=1  ORDER BY Id desc LIMIT 0,".$limit;
+                            $currentId = -1;
+                                $sql = "SELECT * FROM tbl_jobs where status=1  ORDER BY Id LIMIT $limit";
                                 $result = $conn->query($sql);
                                     if($result-> num_rows>0){
                                     // output data of each row
-                                    while($row = $result->fetch_assoc()){?>
+                                    while($row = $result->fetch_assoc()){ $currentId = $row['Id']; ?>
 
                                     <div class="card mb-3  bg-light p-3">
                                         <div class="row g-0">
@@ -140,9 +141,8 @@
                                             
                                             ?>
                      
-                     <div class=" text-center">
-                      <input type="button" id="loadBtn" value="Load More">
-                    
+                     <div class="text-center">
+                      <input type="button" id="<?php echo $currentId; ?>" class="loadMore" value="Load More">
                     </div>
                     </div>
 					</div>
@@ -216,6 +216,22 @@
         </footer>
         <script src="assets/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+         <script type="text/javascript">
+            $(document).ready(function(){
+                $(document).on('click','.loadMore',function(){
+                    var ID = $(this).attr('id');
+                    $.ajax({
+                        type:'POST',
+                        url:'ajax_more.php',
+                        data:'id='+ID,
+                        success:function(html){
+                            // alert(html);
+                            $('.loadMore').hide();
+                            $('.postlist').append(html);
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
